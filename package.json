@@ -1,0 +1,17 @@
+{
+  "name": "crm-platform",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "docker compose up -d",
+    "down": "docker compose down",
+    "logs": "docker compose logs -f"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.79.0"
+  }
+}
