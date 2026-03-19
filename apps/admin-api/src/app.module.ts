@@ -8,6 +8,7 @@ import { ChannelsModule } from './channels/channels.module';
 import { ConversationsModule } from './conversations/conversations.module';
 import { User } from './users/user.entity';
 import { Channel } from './channels/channel.entity';
+import { CentrifugoModule } from './centrifugo/centrifugo.module';
 
 @Module({
   imports: [
@@ -37,6 +38,7 @@ import { Channel } from './channels/channel.entity';
     UsersModule,
     ChannelsModule,
     ConversationsModule,
+    CentrifugoModule,
   ],
 })
 export class AppModule {}

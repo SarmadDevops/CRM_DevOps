@@ -3,6 +3,8 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Conversation, ConversationDocument } from './conversation.schema';
 import { Message, MessageDocument } from './message.schema';
+import { CentrifugoService } from '../centrifugo/centrifugo.service';
+
 
 @Injectable()
 export class ConversationsService {
@@ -11,6 +13,7 @@ export class ConversationsService {
     private conversationModel: Model<ConversationDocument>,
     @InjectModel(Message.name)
     private messageModel: Model<MessageDocument>,
+    private centrifugoService: CentrifugoService,
   ) {}
 
   async findAll(tenantId: string, status?: string) {
@@ -66,6 +69,12 @@ export class ConversationsService {
         last_message_at: new Date(),
         last_message_text: text,
       },
+    );
+
+    // Publish to Centrifugo
+    await this.centrifugoService.publish(
+      `tenant:${tenantId}:conversation:${conversationId}`,
+      { type: 'new_message', message },
     );
 
     return message;

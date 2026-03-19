@@ -4,6 +4,7 @@ import { ConversationsController } from './conversations.controller';
 import { ConversationsService } from './conversations.service';
 import { Conversation, ConversationSchema } from './conversation.schema';
 import { Message, MessageSchema } from './message.schema';
+import { CentrifugoModule } from '../centrifugo/centrifugo.module';
 
 @Module({
   imports: [
@@ -11,6 +12,7 @@ import { Message, MessageSchema } from './message.schema';
       { name: Conversation.name, schema: ConversationSchema },
       { name: Message.name, schema: MessageSchema },
     ]),
+    CentrifugoModule,
   ],
   controllers: [ConversationsController],
   providers: [ConversationsService],

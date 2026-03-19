@@ -84,6 +84,21 @@ services:
       - postgres
       - mongodb
       - redis
+  
+  centrifugo:
+    image: centrifugo/centrifugo:v5
+    container_name: crm_centrifugo
+    restart: always
+    ports:
+      - "9000:9000"
+    environment:
+      CENTRIFUGO_TOKEN_SECRET: centrifugo_secret_change_this
+      CENTRIFUGO_API_KEY: centrifugo_api_key_change_this
+      CENTRIFUGO_ADMIN: "true"
+      CENTRIFUGO_ADMIN_PASSWORD: admin123
+      CENTRIFUGO_ADMIN_SECRET: admin_secret
+      CENTRIFUGO_ALLOWED_ORIGINS: "*"
+    command: centrifugo --port=9000
 
 volumes:
   postgres_data:
